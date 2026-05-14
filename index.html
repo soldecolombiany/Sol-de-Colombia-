@@ -1,17 +1,506 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#3B2A1A" />
-    <meta name="description" content="Sol de Colombia - Auténtica cocina colombiana en Bayside, NY. Reserva tu mesa hoy." />
-    <meta property="og:title" content="Sol de Colombia" />
-    <meta property="og:description" content="Auténtica cocina colombiana en Bayside, NY. Bakery, restaurante y catering." />
-    <meta property="og:type" content="website" />
-    <title>Sol de Colombia</title>
-  </head>
-  <body>
-    <noscript>Necesitas JavaScript para ver esta página.</noscript>
-    <div id="root"></div>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sol de Colombia</title>
+  <meta name="description" content="Auténtica cocina colombiana en Bayside, NY. Reserva tu mesa hoy." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #F5F0E8;
+      --bg-soft: #EDE6D6;
+      --bg-card: #FAF6EE;
+      --brown: #3B2A1A;
+      --brown-mid: #6B4C2A;
+      --brown-light: #A08060;
+      --yellow: #F5C400;
+      --blue: #2B3A8C;
+      --blue-dark: #1A2660;
+      --red: #C41230;
+      --border: rgba(59,42,26,0.12);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { font-family:'Cormorant Garamond',Georgia,serif; background:var(--bg); color:var(--brown); overflow-x:hidden; }
+    ::-webkit-scrollbar { width:4px; }
+    ::-webkit-scrollbar-track { background:var(--bg-soft); }
+    ::-webkit-scrollbar-thumb { background:var(--yellow); border-radius:2px; }
+
+    @keyframes fadeUp { from{opacity:0;transform:translateY(36px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes floatY { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
+
+    /* NAV */
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:100;
+      height:66px; padding:0 6vw;
+      display:flex; align-items:center; justify-content:space-between;
+      background:rgba(245,240,232,0.96); backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--border);
+      box-shadow:0 2px 12px rgba(59,42,26,.07);
+    }
+    .nav-links { display:flex; gap:28px; align-items:center; }
+    .nav-link {
+      font-family:'Lato',sans-serif; font-size:0.68rem; letter-spacing:0.22em;
+      text-transform:uppercase; color:var(--brown-mid); cursor:pointer;
+      background:none; border:none; padding:6px 0; position:relative; transition:color .3s; text-decoration:none;
+    }
+    .nav-link::after { content:''; position:absolute; bottom:0; left:0; width:0; height:2px; background:var(--yellow); transition:width .3s; }
+    .nav-link:hover { color:var(--blue); }
+    .nav-link:hover::after { width:100%; }
+
+    /* BUTTONS */
+    .btn-primary {
+      display:inline-block; padding:13px 36px; background:var(--blue); color:#fff;
+      font-family:'Lato',sans-serif; font-size:0.7rem; letter-spacing:0.24em;
+      text-transform:uppercase; border:none; cursor:pointer;
+      transition:background .3s,transform .2s; text-decoration:none;
+    }
+    .btn-primary:hover { background:var(--blue-dark); transform:translateY(-2px); }
+    .btn-outline {
+      display:inline-block; padding:12px 32px; background:transparent; color:var(--brown);
+      font-family:'Lato',sans-serif; font-size:0.7rem; letter-spacing:0.24em;
+      text-transform:uppercase; border:1.5px solid var(--brown-mid); cursor:pointer;
+      transition:all .3s; text-decoration:none;
+    }
+    .btn-outline:hover { background:var(--brown); color:var(--bg-card); transform:translateY(-2px); }
+
+    /* FLAG BAR */
+    .flag-bar { display:flex; }
+    .flag-bar .y { flex:2; background:var(--yellow); }
+    .flag-bar .b { flex:1; background:var(--blue); }
+    .flag-bar .r { flex:1; background:var(--red); }
+
+    /* SECTION LABEL */
+    .section-tag {
+      font-family:'Lato',sans-serif; font-size:0.6rem; letter-spacing:0.42em;
+      text-transform:uppercase; color:var(--red); font-weight:400;
+    }
+
+    /* HERO */
+    #inicio {
+      min-height:100vh; display:flex; align-items:center;
+      padding:120px 6vw 80px;
+      background:linear-gradient(140deg,var(--bg) 52%,var(--bg-soft) 100%);
+      position:relative; overflow:hidden;
+    }
+    .hero-flag-bg {
+      position:absolute; top:0; right:0; width:35vw; height:100%;
+      display:flex; flex-direction:column; opacity:0.07; pointer-events:none;
+    }
+    .hero-logo {
+      position:absolute; right:5vw; top:50%; transform:translateY(-50%);
+      width:clamp(200px,30vw,440px); opacity:0.92; pointer-events:none;
+      animation:floatY 7s ease-in-out infinite;
+      filter:drop-shadow(0 16px 48px rgba(245,196,0,.22));
+    }
+    .hero-content { max-width:540px; position:relative; z-index:2; }
+    .hero-tag { margin-bottom:20px; animation:fadeUp 1s 0.1s ease both; }
+    .hero-title {
+      font-size:clamp(3.2rem,8vw,6.5rem); font-weight:300;
+      line-height:0.95; letter-spacing:-0.02em; color:var(--brown);
+      margin-bottom:24px; animation:fadeUp 1s 0.3s ease both;
+    }
+    .hero-flag { margin-bottom:26px; border-radius:2px; overflow:hidden; width:180px; height:5px; animation:fadeUp 1s 0.3s ease both; }
+    .hero-desc {
+      font-size:clamp(1rem,2vw,1.18rem); font-style:italic;
+      color:var(--brown-mid); line-height:1.85; max-width:400px; margin-bottom:38px;
+      animation:fadeUp 1s 0.5s ease both;
+    }
+    .hero-btns { display:flex; gap:14px; flex-wrap:wrap; animation:fadeUp 1s 0.7s ease both; }
+
+    /* ABOUT */
+    #nosotros { padding:100px 6vw; background:var(--bg-soft); }
+    .about-grid { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+    @media(max-width:768px){ .about-grid { grid-template-columns:1fr; gap:40px; } }
+    .gradient-line { width:52px; height:3px; background:linear-gradient(90deg,var(--yellow),var(--red)); border-radius:2px; margin-bottom:26px; }
+
+    /* MENU */
+    #menú { padding:100px 6vw; background:var(--bg); }
+    .menu-inner { max-width:1100px; margin:0 auto; }
+    .menu-header { text-align:center; margin-bottom:68px; }
+    .rainbow-line { width:60px; height:3px; background:linear-gradient(90deg,var(--yellow),var(--blue),var(--red)); border-radius:2px; margin:0 auto; }
+    .category-row { display:flex; align-items:center; gap:14px; margin-bottom:22px; }
+    .category-dot { width:12px; height:12px; border-radius:50%; flex-shrink:0; }
+    .category-name { font-family:'Lato',sans-serif; font-size:0.65rem; letter-spacing:0.36em; text-transform:uppercase; color:var(--brown-mid); }
+    .category-line { flex:1; height:1px; background:var(--border); }
+    .menu-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; margin-bottom:54px; }
+    .menu-card {
+      background:var(--bg-card); border:1px solid var(--border);
+      border-top:3px solid var(--yellow); padding:24px 20px;
+      transition:box-shadow .35s,transform .35s;
+    }
+    .menu-card:hover { box-shadow:0 8px 28px rgba(59,42,26,.1); transform:translateY(-4px); }
+    .menu-card-top { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px; }
+    .menu-card-name { font-size:1.15rem; font-weight:400; color:var(--brown); flex:1; padding-right:12px; }
+    .menu-card-price { font-size:1.05rem; font-style:italic; white-space:nowrap; font-weight:600; }
+    .menu-card-desc { font-family:'Lato',sans-serif; font-size:0.76rem; color:var(--brown-light); line-height:1.6; font-weight:300; }
+
+    /* TESTIMONIALS */
+    .testi-section { padding:100px 6vw; background:var(--bg-soft); }
+    .testi-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; max-width:1100px; margin:0 auto; }
+    .testi-card { padding:34px 30px; border-left:3px solid var(--yellow); background:var(--bg-card); }
+    .testi-text { font-size:1.12rem; font-style:italic; color:var(--brown-mid); line-height:1.85; margin-bottom:22px; }
+    .testi-author { display:flex; align-items:center; gap:12px; }
+    .testi-line { width:26px; height:2px; }
+    .testi-name { font-family:'Lato',sans-serif; font-size:0.65rem; letter-spacing:0.18em; color:var(--brown-mid); text-transform:uppercase; }
+
+    /* RESERVAR */
+    #reservar { padding:100px 6vw; background:var(--bg); }
+    .reservar-inner { max-width:600px; margin:0 auto; }
+    .form-grid2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    @media(max-width:500px){ .form-grid2 { grid-template-columns:1fr; } }
+    .form-input {
+      width:100%; background:var(--bg-card); border:none;
+      border-bottom:2px solid var(--brown-light); color:var(--brown);
+      padding:13px 4px; font-family:'Cormorant Garamond',Georgia,serif;
+      font-size:1.05rem; outline:none; transition:border-bottom-color .3s;
+    }
+    .form-input:focus { border-bottom-color:var(--blue); }
+    .form-input::placeholder { color:var(--brown-light); font-style:italic; }
+    .form-wrap { display:flex; flex-direction:column; gap:18px; }
+    .success-box { text-align:center; padding:56px 40px; border:1px solid var(--border); background:var(--bg-card); display:none; }
+
+    /* FOOTER */
+    footer { background:var(--brown); color:var(--bg-soft); padding:60px 6vw 32px; }
+    .footer-grid { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr; gap:60px; margin-bottom:46px; }
+    @media(max-width:768px){ .footer-grid { grid-template-columns:1fr; gap:40px; } }
+    .footer-label { font-family:'Lato',sans-serif; font-size:0.6rem; letter-spacing:0.32em; text-transform:uppercase; color:var(--yellow); margin-bottom:16px; }
+    .footer-text { font-family:'Lato',sans-serif; font-size:0.82rem; color:var(--brown-light); line-height:2.1; font-weight:300; }
+    .footer-bottom { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }
+    .footer-copy { font-family:'Lato',sans-serif; font-size:0.63rem; color:var(--brown-light); letter-spacing:0.08em; font-weight:300; }
+    .footer-love { font-style:italic; color:var(--brown-light); }
+
+    /* SECTION HEADERS */
+    .section-heading { font-size:clamp(2.2rem,4.5vw,3.5rem); font-weight:300; color:var(--brown); margin-bottom:18px; }
+
+    /* RESPONSIVE NAV */
+    @media(max-width:640px){
+      .nav-links .nav-link { display:none; }
+      .nav-links .nav-link.reservar-btn { display:inline-block; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <svg height="44" viewBox="0 0 220 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="110" cy="32" r="18" fill="#F5C400"/>
+    <line x1="110" y1="10" x2="110" y2="2"  stroke="#F5C400" stroke-width="3" stroke-linecap="round"/>
+    <line x1="126" y1="16" x2="132" y2="10" stroke="#F5C400" stroke-width="3" stroke-linecap="round"/>
+    <line x1="132" y1="32" x2="140" y2="32" stroke="#F5C400" stroke-width="3" stroke-linecap="round"/>
+    <line x1="126" y1="48" x2="132" y2="54" stroke="#F5C400" stroke-width="3" stroke-linecap="round"/>
+    <line x1="110" y1="54" x2="110" y2="62" stroke="#F5C400" stroke-width="3" stroke-linecap="round"/>
+    <line x1="94"  y1="48" x2="88"  y2="54" stroke="#F5C400" stroke-width="3" stroke-linecap="round"/>
+    <line x1="88"  y1="32" x2="80"  y2="32" stroke="#F5C400" stroke-width="3" stroke-linecap="round"/>
+    <line x1="94"  y1="16" x2="88"  y2="10" stroke="#F5C400" stroke-width="3" stroke-linecap="round"/>
+    <text x="18"  y="44" font-family="Georgia,serif" font-size="44" font-weight="300" fill="#2B3A8C" font-style="italic">S</text>
+    <text x="148" y="44" font-family="Georgia,serif" font-size="44" font-weight="300" fill="#2B3A8C" font-style="italic">l</text>
+    <text x="52"  y="62" font-family="Georgia,serif" font-size="13" fill="#C41230" font-style="italic" letter-spacing="1">De Colombia</text>
+  </svg>
+  <div class="nav-links">
+    <a href="#inicio"   class="nav-link">Inicio</a>
+    <a href="#menú"     class="nav-link">Menú</a>
+    <a href="#nosotros" class="nav-link">Nosotros</a>
+    <a href="#reservar" class="nav-link">Reservar</a>
+    <a href="#reservar" class="btn-primary nav-link reservar-btn" style="padding:9px 20px;font-size:0.65rem;color:#fff">Reservar</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="inicio">
+  <div class="hero-flag-bg">
+    <div style="flex:2;background:#F5C400"></div>
+    <div style="flex:1;background:#2B3A8C"></div>
+    <div style="flex:1;background:#C41230"></div>
+  </div>
+  <div class="hero-logo">
+    <svg viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="110" cy="100" r="55" fill="#F5C400"/>
+      <circle cx="110" cy="100" r="35" fill="#FAF6EE"/>
+      <circle cx="110" cy="100" r="18" fill="#F5C400"/>
+      <line x1="110" y1="38" x2="110" y2="20" stroke="#F5C400" stroke-width="6" stroke-linecap="round"/>
+      <line x1="140" y1="48" x2="152" y2="36" stroke="#F5C400" stroke-width="6" stroke-linecap="round"/>
+      <line x1="160" y1="78" x2="178" y2="72" stroke="#F5C400" stroke-width="6" stroke-linecap="round"/>
+      <line x1="160" y1="112" x2="178" y2="118" stroke="#F5C400" stroke-width="6" stroke-linecap="round"/>
+      <line x1="140" y1="142" x2="152" y2="154" stroke="#F5C400" stroke-width="6" stroke-linecap="round"/>
+      <line x1="110" y1="152" x2="110" y2="170" stroke="#F5C400" stroke-width="6" stroke-linecap="round"/>
+      <line x1="80"  y1="142" x2="68"  y2="154" stroke="#F5C400" stroke-width="6" stroke-linecap="round"/>
+      <line x1="60"  y1="112" x2="42"  y2="118" stroke="#F5C400" stroke-width="6" stroke-linecap="round"/>
+      <line x1="60"  y1="78"  x2="42"  y2="72"  stroke="#F5C400" stroke-width="6" stroke-linecap="round"/>
+      <line x1="80"  y1="48"  x2="68"  y2="36"  stroke="#F5C400" stroke-width="6" stroke-linecap="round"/>
+      <text x="28"  y="140" font-family="Georgia,serif" font-size="130" font-weight="300" fill="#2B3A8C" font-style="italic" opacity="0.15">S</text>
+      <text x="20"  y="200" font-family="Georgia,serif" font-size="26"  fill="#C41230" font-style="italic" letter-spacing="2">De Colombia</text>
+    </svg>
+  </div>
+  <div class="hero-content">
+    <p class="section-tag hero-tag">Auténtica cocina colombiana</p>
+    <h1 class="hero-title">
+      Sol<br><em style="color:#2B3A8C">de</em><br><span style="color:#C41230">Colombia</span>
+    </h1>
+    <div class="flag-bar hero-flag"><div class="y"></div><div class="b"></div><div class="r"></div></div>
+    <p class="hero-desc">Donde los sabores del trópico se encuentran con la elegancia. Una experiencia culinaria que honra nuestras raíces y celebra el presente.</p>
+    <div class="hero-btns">
+      <a href="#reservar" class="btn-primary">Reservar Mesa</a>
+      <a href="#menú"     class="btn-outline">Ver Menú</a>
+    </div>
+  </div>
+</section>
+
+<!-- FLAG -->
+<div class="flag-bar" style="height:6px"><div class="y"></div><div class="b"></div><div class="r"></div></div>
+
+<!-- NOSOTROS -->
+<section id="nosotros">
+  <div class="about-grid">
+    <div>
+      <p class="section-tag" style="margin-bottom:16px">Nuestra historia</p>
+      <h2 style="font-size:clamp(2.2rem,4.5vw,3.8rem);font-weight:300;line-height:1.1;color:var(--brown);margin-bottom:26px">
+        Un viaje al<br><em style="color:#2B3A8C">corazón</em><br>de <span style="color:#C41230">Colombia</span>
+      </h2>
+      <div class="gradient-line"></div>
+      <p style="font-size:1.1rem;font-style:italic;color:var(--brown-mid);line-height:1.9;margin-bottom:18px">
+        "Fundado con el sueño de llevar los auténticos sabores colombianos a cada mesa, Sol de Colombia es más que un restaurante: es un abrazo a nuestra tierra."
+      </p>
+      <p style="font-family:'Lato',sans-serif;font-size:0.84rem;color:var(--brown-light);line-height:1.85;font-weight:300">
+        Cada plato es preparado con ingredientes seleccionados y recetas heredadas de generación en generación. Desde la costa hasta el interior andino, nuestra cocina es un mapa de sabores, colores y memorias.
+      </p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+      <div style="padding:28px 20px;border:1px solid var(--border);background:var(--bg-card);text-align:center">
+        <div style="font-size:2.8rem;font-weight:300;color:#F5C400;line-height:1">30+</div>
+        <div style="font-family:'Lato',sans-serif;font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--brown-light);margin-top:10px">Platos del menú</div>
+      </div>
+      <div style="padding:28px 20px;border:1px solid var(--border);background:var(--bg-card);text-align:center">
+        <div style="font-size:2.8rem;font-weight:300;color:#2B3A8C;line-height:1">98%</div>
+        <div style="font-family:'Lato',sans-serif;font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--brown-light);margin-top:10px">Clientes satisfechos</div>
+      </div>
+      <div style="padding:28px 20px;border:1px solid var(--border);background:var(--bg-card);text-align:center">
+        <div style="font-size:2.8rem;font-weight:300;color:#C41230;line-height:1">100%</div>
+        <div style="font-family:'Lato',sans-serif;font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--brown-light);margin-top:10px">Ingredientes frescos</div>
+      </div>
+      <div style="padding:28px 20px;border:1px solid var(--border);background:var(--bg-card);text-align:center">
+        <div style="font-size:2.8rem;font-weight:300;color:#F5C400;line-height:1">🇨🇴</div>
+        <div style="font-family:'Lato',sans-serif;font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--brown-light);margin-top:10px">Sabor colombiano</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menú">
+  <div class="menu-inner">
+    <div class="menu-header">
+      <p class="section-tag" style="margin-bottom:14px">Carta</p>
+      <h2 class="section-heading">Nuestro <em style="color:#2B3A8C">Menú</em></h2>
+      <div class="rainbow-line"></div>
+    </div>
+
+    <script>
+    const MENU = [
+      { cat:"Appetizers", color:"#F5C400", items:[
+        {n:"Fried Calamari",p:"$20"},{n:"Guacamole with Chips",p:"$15"},{n:"Grilled Octopus",p:"$25"},
+        {n:"Shrimp Cocktail",p:"$22"},{n:"Arepitas with Hogao",p:"$15"},{n:"Jalea Paisa",p:"$15"},
+        {n:"Canastas de la Abuela",p:"$18"},{n:"Guacamole with Pork Belly",p:"$22"},
+        {n:"Crispy Shrimp",p:"$18"},{n:"Ceviche de Chicharron",p:"$22"}
+      ]},
+      { cat:"Breakfast", color:"#C41230", items:[
+        {n:"Caleño Breakfast",p:"$24"},{n:"Grilled Steak – Corn Cake with Cheese",p:"$20"},
+        {n:"Cacerol Eggs",p:"$18"},{n:"American Breakfast",p:"$18"}
+      ]},
+      { cat:"Soups & Salads", color:"#2B3A8C", items:[
+        {n:"Caldo de Costilla",p:"$16"},{n:"Chicken Consomé",p:"$16"},
+        {n:"Ensalada Sol with Avocado",p:"$15",d:"Add grilled chicken +$2 · Add grilled steak +$5 · Add grilled shrimp +$5"},
+        {n:"Caesar Salad with Chicken",p:"$17"}
+      ]},
+      { cat:"Traditional Dishes", color:"#F5C400", items:[
+        {n:"Picada",p:"$50"},{n:'Bandeja Paisa "El Sol"',p:"$48"},{n:"Chuleta Valluna",p:"$28"},
+        {n:"Onion Steak",p:"$25"},{n:"Enchiladas",p:"$20",d:"Add chicken +$3 · Add steak +$5"},
+        {n:"Bandeja Paisa",p:"$30"},{n:"Bandeja Paisa Montañera",p:"$30"},
+        {n:"Bistec a Caballo",p:"$28"},{n:"Frijolada Paisa",p:"$25"},
+        {n:"Mini Picada",p:"$35"},{n:"Lomo Saltado Pollo o Carne",p:"$27"},{n:"Lomo Saltado Entraña",p:"$36"}
+      ]},
+      { cat:"Chicken", color:"#C41230", items:[
+        {n:"Chicken Breast in Mushroom Sauce",p:"$28"},{n:"Breaded Breast",p:"$22"},
+        {n:"Chicken Breast in Hawaiian Sauce",p:"$30"},{n:"Pechuga al Limón",p:"$30"},
+        {n:"Grilled Chicken",p:"$21"},{n:"Pechuga Gratinada con Maíz",p:"$30"},{n:"Pechuga con Camarones",p:"$30"}
+      ]},
+      { cat:"Grill", color:"#2B3A8C", items:[
+        {n:"Rib-Eye",p:"$45"},{n:"Entraña",p:"$36"},{n:"Costilla a la Parrilla",p:"$34"},
+        {n:"Burguer Sol de Colombia",p:"$24"},{n:"Chuleton de Cerdo",p:"$25"},
+        {n:"Lomo de Cerdo a la Plancha",p:"$24"},{n:"Grill Steak",p:"$22"}
+      ]},
+      { cat:"From the Sea", color:"#F5C400", items:[
+        {n:"Grilled Salmon",p:"$30"},{n:"Pargo Frito",p:"$42"},{n:"Arroz con Camarones",p:"$28"},
+        {n:"Cazuela de Mariscos",p:"$35"},{n:"Fried Mojarra",p:"$28"},{n:"Camarones al Ajillo",p:"$30"},
+        {n:"Corvina en Salsa Criolla",p:"$25"},{n:"Mar y Tierra",p:"$48"},{n:"Salmon Cancun",p:"$45"}
+      ]},
+      { cat:"Tacos & Fajitas", color:"#C41230", items:[
+        {n:"Fajitas Chicken",p:"$25"},{n:"Skirt Steak Fajitas",p:"$35"},{n:"Fajitas Shrimp",p:"$32"},
+        {n:"Fajitas Mix",p:"$35"},{n:"Skirt Steak Tacos",p:"$32"},{n:"Shrimp Tacos",p:"$25"}
+      ]},
+      { cat:"Kids Menu", color:"#2B3A8C", items:[
+        {n:"Salchipapa",p:"$15"},{n:"Chicken Fingers",p:"$15"},{n:"Chicken Taquitos",p:"$18"}
+      ]},
+    ];
+
+    const menuEl = document.getElementById('menu-content');
+    MENU.forEach(sec => {
+      let html = `<div>
+        <div class="category-row">
+          <div class="category-dot" style="background:${sec.color}"></div>
+          <span class="category-name">${sec.cat}</span>
+          <div class="category-line"></div>
+        </div>
+        <div class="menu-grid">`;
+      sec.items.forEach(item => {
+        html += `<div class="menu-card" style="border-top-color:${sec.color}">
+          <div class="menu-card-top">
+            <span class="menu-card-name">${item.n}</span>
+            <span class="menu-card-price" style="color:${sec.color}">${item.p}</span>
+          </div>
+          ${item.d ? `<p class="menu-card-desc">${item.d}</p>` : ''}
+        </div>`;
+      });
+      html += `</div></div>`;
+      menuEl.innerHTML += html;
+    });
+    </script>
+    <div id="menu-content"></div>
+  </div>
+</section>
+
+<!-- FLAG -->
+<div class="flag-bar" style="height:4px"><div class="y"></div><div class="b"></div><div class="r"></div></div>
+
+<!-- TESTIMONIOS -->
+<section class="testi-section">
+  <div style="text-align:center;margin-bottom:54px;max-width:1100px;margin:0 auto 54px">
+    <p class="section-tag" style="margin-bottom:14px">Experiencias</p>
+    <h2 style="font-size:clamp(2rem,4vw,3rem);font-weight:300;color:var(--brown)">
+      Lo que dicen nuestros <em style="color:#2B3A8C">huéspedes</em>
+    </h2>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card" style="border-left-color:#F5C400">
+      <p class="testi-text">"El ajiaco me transportó directo a Bogotá. Una experiencia única e irrepetible."</p>
+      <div class="testi-author"><div class="testi-line" style="background:#F5C400"></div><span class="testi-name">María G.</span></div>
+    </div>
+    <div class="testi-card" style="border-left-color:#2B3A8C">
+      <p class="testi-text">"La bandeja paisa es generosa y auténtica. El mejor restaurante colombiano de la ciudad."</p>
+      <div class="testi-author"><div class="testi-line" style="background:#2B3A8C"></div><span class="testi-name">Carlos R.</span></div>
+    </div>
+    <div class="testi-card" style="border-left-color:#C41230">
+      <p class="testi-text">"Ambiente elegante, servicio impecable y sabores que no olvidarás jamás."</p>
+      <div class="testi-author"><div class="testi-line" style="background:#C41230"></div><span class="testi-name">Sofía L.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVAR -->
+<section id="reservar">
+  <div class="reservar-inner">
+    <div style="text-align:center;margin-bottom:54px">
+      <p class="section-tag" style="margin-bottom:14px">Reservaciones</p>
+      <h2 class="section-heading">Reserve su <em style="color:#2B3A8C">mesa</em></h2>
+      <div class="rainbow-line"></div>
+    </div>
+    <div class="success-box" id="success">
+      <div style="font-size:3rem;margin-bottom:18px">☀️</div>
+      <h3 style="font-size:1.9rem;font-weight:300;color:#2B3A8C;margin-bottom:14px">¡Reserva confirmada!</h3>
+      <p style="font-family:'Lato',sans-serif;font-size:0.85rem;color:var(--brown-light);line-height:1.75">
+        Gracias. Nos pondremos en contacto para confirmar su reserva. ¡Hasta pronto!
+      </p>
+    </div>
+    <div class="form-wrap" id="form-wrap">
+      <div class="form-grid2">
+        <input class="form-input" type="text"  placeholder="Nombre completo"    id="fname" />
+        <input class="form-input" type="email" placeholder="Correo electrónico" id="femail" />
+      </div>
+      <div class="form-grid2">
+        <input class="form-input" type="date" id="fdate" />
+        <select class="form-input" id="fguests">
+          <option value="1">1 persona</option><option value="2" selected>2 personas</option>
+          <option value="3">3 personas</option><option value="4">4 personas</option>
+          <option value="5">5 personas</option><option value="6">6 personas</option>
+          <option value="7">7 personas</option><option value="8">8 personas</option>
+        </select>
+      </div>
+      <textarea class="form-input" placeholder="Ocasión especial, preferencias o restricciones alimentarias..." rows="4" style="resize:vertical"></textarea>
+      <div style="text-align:center;margin-top:8px">
+        <button class="btn-primary" onclick="submitForm()">Confirmar Reserva</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <svg height="52" viewBox="0 0 220 70" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:18px;display:block">
+        <circle cx="110" cy="32" r="18" fill="#F5C400"/>
+        <line x1="110" y1="10" x2="110" y2="2"  stroke="#F5C400" stroke-width="3" stroke-linecap="round"/>
+        <line x1="126" y1="16" x2="132" y2="10" stroke="#F5C400" stroke-width="3" stroke-linecap="round"/>
+        <line x1="132" y1="32" x2="140" y2="32" stroke="#F5C400" stroke-width="3" stroke-linecap="round"/>
+        <line x1="126" y1="48" x2="132" y2="54" stroke="#F5C400" stroke-width="3" stroke-linecap="round"/>
+        <line x1="110" y1="54" x2="110" y2="62" stroke="#F5C400" stroke-width="3" stroke-linecap="round"/>
+        <line x1="94"  y1="48" x2="88"  y2="54" stroke="#F5C400" stroke-width="3" stroke-linecap="round"/>
+        <line x1="88"  y1="32" x2="80"  y2="32" stroke="#F5C400" stroke-width="3" stroke-linecap="round"/>
+        <line x1="94"  y1="16" x2="88"  y2="10" stroke="#F5C400" stroke-width="3" stroke-linecap="round"/>
+        <text x="18"  y="44" font-family="Georgia,serif" font-size="44" font-weight="300" fill="#EDE6D6" font-style="italic">S</text>
+        <text x="148" y="44" font-family="Georgia,serif" font-size="44" font-weight="300" fill="#EDE6D6" font-style="italic">l</text>
+        <text x="52"  y="62" font-family="Georgia,serif" font-size="13" fill="#F5C400" font-style="italic" letter-spacing="1">De Colombia</text>
+      </svg>
+      <p class="footer-text" style="max-width:280px">Auténtica cocina colombiana en un ambiente de elegancia y calidez. Una experiencia para todos los sentidos.</p>
+    </div>
+    <div>
+      <p class="footer-label">Horario</p>
+      <div class="footer-text">
+        <div>Bakery: Daily 6 AM – 10 PM</div>
+        <div style="margin-top:6px">Lun – Mié: 12 PM – 10 PM</div>
+        <div>Jue – Sáb: 12 PM – 11 PM</div>
+        <div>Dom: 11 AM – 10 PM</div>
+      </div>
+    </div>
+    <div>
+      <p class="footer-label">Contacto</p>
+      <div class="footer-text">
+        <div>718-819-8135</div>
+        <div>@soldecolombiany</div>
+        <div style="margin-top:6px;color:#F5C400;font-weight:400">Uber Eats · Grubhub</div>
+        <div>Catering for All Occasions</div>
+        <div>34-47 Bell Blvd</div>
+        <div>Bayside, NY 11361</div>
+      </div>
+    </div>
+  </div>
+  <div class="flag-bar" style="height:3px;margin-bottom:28px;border-radius:2px;overflow:hidden">
+    <div class="y"></div><div class="b"></div><div class="r"></div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 Sol de Colombia. Todos los derechos reservados.</p>
+    <p class="footer-love">Hecho con amor ☀️</p>
+  </div>
+</footer>
+
+<script>
+function submitForm() {
+  const name  = document.getElementById('fname').value;
+  const email = document.getElementById('femail').value;
+  const date  = document.getElementById('fdate').value;
+  if (!name || !email || !date) { alert('Por favor completa nombre, correo y fecha.'); return; }
+  document.getElementById('form-wrap').style.display = 'none';
+  document.getElementById('success').style.display = 'block';
+}
+
+// Scroll animation for menu cards
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.style.animation = 'fadeUp 0.6s ease forwards'; });
+}, { threshold: 0.1 });
+document.querySelectorAll('.menu-card').forEach(c => observer.observe(c));
+</script>
+</body>
 </html>
