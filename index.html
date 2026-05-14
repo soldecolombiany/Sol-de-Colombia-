@@ -298,77 +298,116 @@
       <div class="rainbow-line"></div>
     </div>
 
-    <script>
-    const MENU = [
-      { cat:"Appetizers", color:"#F5C400", items:[
-        {n:"Fried Calamari",p:"$20"},{n:"Guacamole with Chips",p:"$15"},{n:"Grilled Octopus",p:"$25"},
-        {n:"Shrimp Cocktail",p:"$22"},{n:"Arepitas with Hogao",p:"$15"},{n:"Jalea Paisa",p:"$15"},
-        {n:"Canastas de la Abuela",p:"$18"},{n:"Guacamole with Pork Belly",p:"$22"},
-        {n:"Crispy Shrimp",p:"$18"},{n:"Ceviche de Chicharron",p:"$22"}
-      ]},
-      { cat:"Breakfast", color:"#C41230", items:[
-        {n:"Caleño Breakfast",p:"$24"},{n:"Grilled Steak – Corn Cake with Cheese",p:"$20"},
-        {n:"Cacerol Eggs",p:"$18"},{n:"American Breakfast",p:"$18"}
-      ]},
-      { cat:"Soups & Salads", color:"#2B3A8C", items:[
-        {n:"Caldo de Costilla",p:"$16"},{n:"Chicken Consomé",p:"$16"},
-        {n:"Ensalada Sol with Avocado",p:"$15",d:"Add grilled chicken +$2 · Add grilled steak +$5 · Add grilled shrimp +$5"},
-        {n:"Caesar Salad with Chicken",p:"$17"}
-      ]},
-      { cat:"Traditional Dishes", color:"#F5C400", items:[
-        {n:"Picada",p:"$50"},{n:'Bandeja Paisa "El Sol"',p:"$48"},{n:"Chuleta Valluna",p:"$28"},
-        {n:"Onion Steak",p:"$25"},{n:"Enchiladas",p:"$20",d:"Add chicken +$3 · Add steak +$5"},
-        {n:"Bandeja Paisa",p:"$30"},{n:"Bandeja Paisa Montañera",p:"$30"},
-        {n:"Bistec a Caballo",p:"$28"},{n:"Frijolada Paisa",p:"$25"},
-        {n:"Mini Picada",p:"$35"},{n:"Lomo Saltado Pollo o Carne",p:"$27"},{n:"Lomo Saltado Entraña",p:"$36"}
-      ]},
-      { cat:"Chicken", color:"#C41230", items:[
-        {n:"Chicken Breast in Mushroom Sauce",p:"$28"},{n:"Breaded Breast",p:"$22"},
-        {n:"Chicken Breast in Hawaiian Sauce",p:"$30"},{n:"Pechuga al Limón",p:"$30"},
-        {n:"Grilled Chicken",p:"$21"},{n:"Pechuga Gratinada con Maíz",p:"$30"},{n:"Pechuga con Camarones",p:"$30"}
-      ]},
-      { cat:"Grill", color:"#2B3A8C", items:[
-        {n:"Rib-Eye",p:"$45"},{n:"Entraña",p:"$36"},{n:"Costilla a la Parrilla",p:"$34"},
-        {n:"Burguer Sol de Colombia",p:"$24"},{n:"Chuleton de Cerdo",p:"$25"},
-        {n:"Lomo de Cerdo a la Plancha",p:"$24"},{n:"Grill Steak",p:"$22"}
-      ]},
-      { cat:"From the Sea", color:"#F5C400", items:[
-        {n:"Grilled Salmon",p:"$30"},{n:"Pargo Frito",p:"$42"},{n:"Arroz con Camarones",p:"$28"},
-        {n:"Cazuela de Mariscos",p:"$35"},{n:"Fried Mojarra",p:"$28"},{n:"Camarones al Ajillo",p:"$30"},
-        {n:"Corvina en Salsa Criolla",p:"$25"},{n:"Mar y Tierra",p:"$48"},{n:"Salmon Cancun",p:"$45"}
-      ]},
-      { cat:"Tacos & Fajitas", color:"#C41230", items:[
-        {n:"Fajitas Chicken",p:"$25"},{n:"Skirt Steak Fajitas",p:"$35"},{n:"Fajitas Shrimp",p:"$32"},
-        {n:"Fajitas Mix",p:"$35"},{n:"Skirt Steak Tacos",p:"$32"},{n:"Shrimp Tacos",p:"$25"}
-      ]},
-      { cat:"Kids Menu", color:"#2B3A8C", items:[
-        {n:"Salchipapa",p:"$15"},{n:"Chicken Fingers",p:"$15"},{n:"Chicken Taquitos",p:"$18"}
-      ]},
-    ];
+    <div id="menu-content">
 
-    const menuEl = document.getElementById('menu-content');
-    MENU.forEach(sec => {
-      let html = `<div>
-        <div class="category-row">
-          <div class="category-dot" style="background:${sec.color}"></div>
-          <span class="category-name">${sec.cat}</span>
-          <div class="category-line"></div>
-        </div>
-        <div class="menu-grid">`;
-      sec.items.forEach(item => {
-        html += `<div class="menu-card" style="border-top-color:${sec.color}">
-          <div class="menu-card-top">
-            <span class="menu-card-name">${item.n}</span>
-            <span class="menu-card-price" style="color:${sec.color}">${item.p}</span>
-          </div>
-          ${item.d ? `<p class="menu-card-desc">${item.d}</p>` : ''}
-        </div>`;
-      });
-      html += `</div></div>`;
-      menuEl.innerHTML += html;
-    });
-    </script>
-    <div id="menu-content"></div>
+      <!-- APPETIZERS -->
+      <div><div class="category-row"><div class="category-dot" style="background:#F5C400"></div><span class="category-name">Appetizers</span><div class="category-line"></div></div>
+      <div class="menu-grid">
+        <div class="menu-card" style="border-top-color:#F5C400"><div class="menu-card-top"><span class="menu-card-name">Fried Calamari</span><span class="menu-card-price" style="color:#F5C400">$20</span></div></div>
+        <div class="menu-card" style="border-top-color:#F5C400"><div class="menu-card-top"><span class="menu-card-name">Guacamole with Chips</span><span class="menu-card-price" style="color:#F5C400">$15</span></div></div>
+        <div class="menu-card" style="border-top-color:#F5C400"><div class="menu-card-top"><span class="menu-card-name">Grilled Octopus</span><span class="menu-card-price" style="color:#F5C400">$25</span></div></div>
+        <div class="menu-card" style="border-top-color:#F5C400"><div class="menu-card-top"><span class="menu-card-name">Shrimp Cocktail</span><span class="menu-card-price" style="color:#F5C400">$22</span></div></div>
+        <div class="menu-card" style="border-top-color:#F5C400"><div class="menu-card-top"><span class="menu-card-name">Arepitas with Hogao</span><span class="menu-card-price" style="color:#F5C400">$15</span></div></div>
+        <div class="menu-card" style="border-top-color:#F5C400"><div class="menu-card-top"><span class="menu-card-name">Jalea Paisa</span><span class="menu-card-price" style="color:#F5C400">$15</span></div></div>
+        <div class="menu-card" style="border-top-color:#F5C400"><div class="menu-card-top"><span class="menu-card-name">Canastas de la Abuela</span><span class="menu-card-price" style="color:#F5C400">$18</span></div></div>
+        <div class="menu-card" style="border-top-color:#F5C400"><div class="menu-card-top"><span class="menu-card-name">Guacamole with Pork Belly</span><span class="menu-card-price" style="color:#F5C400">$22</span></div></div>
+        <div class="menu-card" style="border-top-color:#F5C400"><div class="menu-card-top"><span class="menu-card-name">Crispy Shrimp</span><span class="menu-card-price" style="color:#F5C400">$18</span></div></div>
+        <div class="menu-card" style="border-top-color:#F5C400"><div class="menu-card-top"><span class="menu-card-name">Ceviche de Chicharron</span><span class="menu-card-price" style="color:#F5C400">$22</span></div></div>
+      </div></div>
+
+      <!-- BREAKFAST -->
+      <div><div class="category-row"><div class="category-dot" style="background:#C41230"></div><span class="category-name">Breakfast</span><div class="category-line"></div></div>
+      <div class="menu-grid">
+        <div class="menu-card" style="border-top-color:#C41230"><div class="menu-card-top"><span class="menu-card-name">Caleño Breakfast</span><span class="menu-card-price" style="color:#C41230">$24</span></div></div>
+        <div class="menu-card" style="border-top-color:#C41230"><div class="menu-card-top"><span class="menu-card-name">Grilled Steak - Corn Cake with Cheese</span><span class="menu-card-price" style="color:#C41230">$20</span></div></div>
+        <div class="menu-card" style="border-top-color:#C41230"><div class="menu-card-top"><span class="menu-card-name">Cacerol Eggs</span><span class="menu-card-price" style="color:#C41230">$18</span></div></div>
+        <div class="menu-card" style="border-top-color:#C41230"><div class="menu-card-top"><span class="menu-card-name">American Breakfast</span><span class="menu-card-price" style="color:#C41230">$18</span></div></div>
+      </div></div>
+
+      <!-- SOUPS & SALADS -->
+      <div><div class="category-row"><div class="category-dot" style="background:#2B3A8C"></div><span class="category-name">Soups &amp; Salads</span><div class="category-line"></div></div>
+      <div class="menu-grid">
+        <div class="menu-card" style="border-top-color:#2B3A8C"><div class="menu-card-top"><span class="menu-card-name">Caldo de Costilla</span><span class="menu-card-price" style="color:#2B3A8C">$16</span></div></div>
+        <div class="menu-card" style="border-top-color:#2B3A8C"><div class="menu-card-top"><span class="menu-card-name">Chicken Consome</span><span class="menu-card-price" style="color:#2B3A8C">$16</span></div></div>
+        <div class="menu-card" style="border-top-color:#2B3A8C"><div class="menu-card-top"><span class="menu-card-name">Ensalada Sol with Avocado</span><span class="menu-card-price" style="color:#2B3A8C">$15</span></div><p class="menu-card-desc">Add grilled chicken +$2 · Add grilled steak +$5 · Add grilled shrimp +$5</p></div>
+        <div class="menu-card" style="border-top-color:#2B3A8C"><div class="menu-card-top"><span class="menu-card-name">Caesar Salad with Chicken</span><span class="menu-card-price" style="color:#2B3A8C">$17</span></div></div>
+      </div></div>
+
+      <!-- TRADITIONAL DISHES -->
+      <div><div class="category-row"><div class="category-dot" style="background:#F5C400"></div><span class="category-name">Traditional Dishes</span><div class="category-line"></div></div>
+      <div class="menu-grid">
+        <div class="menu-card" style="border-top-color:#F5C400"><div class="menu-card-top"><span class="menu-card-name">Picada</span><span class="menu-card-price" style="color:#F5C400">$50</span></div></div>
+        <div class="menu-card" style="border-top-color:#F5C400"><div class="menu-card-top"><span class="menu-card-name">Bandeja Paisa El Sol</span><span class="menu-card-price" style="color:#F5C400">$48</span></div></div>
+        <div class="menu-card" style="border-top-color:#F5C400"><div class="menu-card-top"><span class="menu-card-name">Chuleta Valluna</span><span class="menu-card-price" style="color:#F5C400">$28</span></div></div>
+        <div class="menu-card" style="border-top-color:#F5C400"><div class="menu-card-top"><span class="menu-card-name">Onion Steak</span><span class="menu-card-price" style="color:#F5C400">$25</span></div></div>
+        <div class="menu-card" style="border-top-color:#F5C400"><div class="menu-card-top"><span class="menu-card-name">Enchiladas</span><span class="menu-card-price" style="color:#F5C400">$20</span></div><p class="menu-card-desc">Add chicken +$3 · Add steak +$5</p></div>
+        <div class="menu-card" style="border-top-color:#F5C400"><div class="menu-card-top"><span class="menu-card-name">Bandeja Paisa</span><span class="menu-card-price" style="color:#F5C400">$30</span></div></div>
+        <div class="menu-card" style="border-top-color:#F5C400"><div class="menu-card-top"><span class="menu-card-name">Bandeja Paisa Montanera</span><span class="menu-card-price" style="color:#F5C400">$30</span></div></div>
+        <div class="menu-card" style="border-top-color:#F5C400"><div class="menu-card-top"><span class="menu-card-name">Bistec a Caballo</span><span class="menu-card-price" style="color:#F5C400">$28</span></div></div>
+        <div class="menu-card" style="border-top-color:#F5C400"><div class="menu-card-top"><span class="menu-card-name">Frijolada Paisa</span><span class="menu-card-price" style="color:#F5C400">$25</span></div></div>
+        <div class="menu-card" style="border-top-color:#F5C400"><div class="menu-card-top"><span class="menu-card-name">Mini Picada</span><span class="menu-card-price" style="color:#F5C400">$35</span></div></div>
+        <div class="menu-card" style="border-top-color:#F5C400"><div class="menu-card-top"><span class="menu-card-name">Lomo Saltado Pollo o Carne</span><span class="menu-card-price" style="color:#F5C400">$27</span></div></div>
+        <div class="menu-card" style="border-top-color:#F5C400"><div class="menu-card-top"><span class="menu-card-name">Lomo Saltado Entrana</span><span class="menu-card-price" style="color:#F5C400">$36</span></div></div>
+      </div></div>
+
+      <!-- CHICKEN -->
+      <div><div class="category-row"><div class="category-dot" style="background:#C41230"></div><span class="category-name">Chicken</span><div class="category-line"></div></div>
+      <div class="menu-grid">
+        <div class="menu-card" style="border-top-color:#C41230"><div class="menu-card-top"><span class="menu-card-name">Chicken Breast in Mushroom Sauce</span><span class="menu-card-price" style="color:#C41230">$28</span></div></div>
+        <div class="menu-card" style="border-top-color:#C41230"><div class="menu-card-top"><span class="menu-card-name">Breaded Breast</span><span class="menu-card-price" style="color:#C41230">$22</span></div></div>
+        <div class="menu-card" style="border-top-color:#C41230"><div class="menu-card-top"><span class="menu-card-name">Chicken Breast in Hawaiian Sauce</span><span class="menu-card-price" style="color:#C41230">$30</span></div></div>
+        <div class="menu-card" style="border-top-color:#C41230"><div class="menu-card-top"><span class="menu-card-name">Pechuga al Limon</span><span class="menu-card-price" style="color:#C41230">$30</span></div></div>
+        <div class="menu-card" style="border-top-color:#C41230"><div class="menu-card-top"><span class="menu-card-name">Grilled Chicken</span><span class="menu-card-price" style="color:#C41230">$21</span></div></div>
+        <div class="menu-card" style="border-top-color:#C41230"><div class="menu-card-top"><span class="menu-card-name">Pechuga Gratinada con Maiz</span><span class="menu-card-price" style="color:#C41230">$30</span></div></div>
+        <div class="menu-card" style="border-top-color:#C41230"><div class="menu-card-top"><span class="menu-card-name">Pechuga con Camarones</span><span class="menu-card-price" style="color:#C41230">$30</span></div></div>
+      </div></div>
+
+      <!-- GRILL -->
+      <div><div class="category-row"><div class="category-dot" style="background:#2B3A8C"></div><span class="category-name">Grill</span><div class="category-line"></div></div>
+      <div class="menu-grid">
+        <div class="menu-card" style="border-top-color:#2B3A8C"><div class="menu-card-top"><span class="menu-card-name">Rib-Eye</span><span class="menu-card-price" style="color:#2B3A8C">$45</span></div></div>
+        <div class="menu-card" style="border-top-color:#2B3A8C"><div class="menu-card-top"><span class="menu-card-name">Entrana</span><span class="menu-card-price" style="color:#2B3A8C">$36</span></div></div>
+        <div class="menu-card" style="border-top-color:#2B3A8C"><div class="menu-card-top"><span class="menu-card-name">Costilla a la Parrilla</span><span class="menu-card-price" style="color:#2B3A8C">$34</span></div></div>
+        <div class="menu-card" style="border-top-color:#2B3A8C"><div class="menu-card-top"><span class="menu-card-name">Burguer Sol de Colombia</span><span class="menu-card-price" style="color:#2B3A8C">$24</span></div></div>
+        <div class="menu-card" style="border-top-color:#2B3A8C"><div class="menu-card-top"><span class="menu-card-name">Chuleton de Cerdo</span><span class="menu-card-price" style="color:#2B3A8C">$25</span></div></div>
+        <div class="menu-card" style="border-top-color:#2B3A8C"><div class="menu-card-top"><span class="menu-card-name">Lomo de Cerdo a la Plancha</span><span class="menu-card-price" style="color:#2B3A8C">$24</span></div></div>
+        <div class="menu-card" style="border-top-color:#2B3A8C"><div class="menu-card-top"><span class="menu-card-name">Grill Steak</span><span class="menu-card-price" style="color:#2B3A8C">$22</span></div></div>
+      </div></div>
+
+      <!-- FROM THE SEA -->
+      <div><div class="category-row"><div class="category-dot" style="background:#F5C400"></div><span class="category-name">From the Sea</span><div class="category-line"></div></div>
+      <div class="menu-grid">
+        <div class="menu-card" style="border-top-color:#F5C400"><div class="menu-card-top"><span class="menu-card-name">Grilled Salmon</span><span class="menu-card-price" style="color:#F5C400">$30</span></div></div>
+        <div class="menu-card" style="border-top-color:#F5C400"><div class="menu-card-top"><span class="menu-card-name">Pargo Frito</span><span class="menu-card-price" style="color:#F5C400">$42</span></div></div>
+        <div class="menu-card" style="border-top-color:#F5C400"><div class="menu-card-top"><span class="menu-card-name">Arroz con Camarones</span><span class="menu-card-price" style="color:#F5C400">$28</span></div></div>
+        <div class="menu-card" style="border-top-color:#F5C400"><div class="menu-card-top"><span class="menu-card-name">Cazuela de Mariscos</span><span class="menu-card-price" style="color:#F5C400">$35</span></div></div>
+        <div class="menu-card" style="border-top-color:#F5C400"><div class="menu-card-top"><span class="menu-card-name">Fried Mojarra</span><span class="menu-card-price" style="color:#F5C400">$28</span></div></div>
+        <div class="menu-card" style="border-top-color:#F5C400"><div class="menu-card-top"><span class="menu-card-name">Camarones al Ajillo</span><span class="menu-card-price" style="color:#F5C400">$30</span></div></div>
+        <div class="menu-card" style="border-top-color:#F5C400"><div class="menu-card-top"><span class="menu-card-name">Corvina en Salsa Criolla</span><span class="menu-card-price" style="color:#F5C400">$25</span></div></div>
+        <div class="menu-card" style="border-top-color:#F5C400"><div class="menu-card-top"><span class="menu-card-name">Mar y Tierra</span><span class="menu-card-price" style="color:#F5C400">$48</span></div></div>
+        <div class="menu-card" style="border-top-color:#F5C400"><div class="menu-card-top"><span class="menu-card-name">Salmon Cancun</span><span class="menu-card-price" style="color:#F5C400">$45</span></div></div>
+      </div></div>
+
+      <!-- TACOS & FAJITAS -->
+      <div><div class="category-row"><div class="category-dot" style="background:#C41230"></div><span class="category-name">Tacos &amp; Fajitas</span><div class="category-line"></div></div>
+      <div class="menu-grid">
+        <div class="menu-card" style="border-top-color:#C41230"><div class="menu-card-top"><span class="menu-card-name">Fajitas Chicken</span><span class="menu-card-price" style="color:#C41230">$25</span></div></div>
+        <div class="menu-card" style="border-top-color:#C41230"><div class="menu-card-top"><span class="menu-card-name">Skirt Steak Fajitas</span><span class="menu-card-price" style="color:#C41230">$35</span></div></div>
+        <div class="menu-card" style="border-top-color:#C41230"><div class="menu-card-top"><span class="menu-card-name">Fajitas Shrimp</span><span class="menu-card-price" style="color:#C41230">$32</span></div></div>
+        <div class="menu-card" style="border-top-color:#C41230"><div class="menu-card-top"><span class="menu-card-name">Fajitas Mix</span><span class="menu-card-price" style="color:#C41230">$35</span></div></div>
+        <div class="menu-card" style="border-top-color:#C41230"><div class="menu-card-top"><span class="menu-card-name">Skirt Steak Tacos</span><span class="menu-card-price" style="color:#C41230">$32</span></div></div>
+        <div class="menu-card" style="border-top-color:#C41230"><div class="menu-card-top"><span class="menu-card-name">Shrimp Tacos</span><span class="menu-card-price" style="color:#C41230">$25</span></div></div>
+      </div></div>
+
+      <!-- KIDS MENU -->
+      <div><div class="category-row"><div class="category-dot" style="background:#2B3A8C"></div><span class="category-name">Kids Menu</span><div class="category-line"></div></div>
+      <div class="menu-grid">
+        <div class="menu-card" style="border-top-color:#2B3A8C"><div class="menu-card-top"><span class="menu-card-name">Salchipapa</span><span class="menu-card-price" style="color:#2B3A8C">$15</span></div></div>
+        <div class="menu-card" style="border-top-color:#2B3A8C"><div class="menu-card-top"><span class="menu-card-name">Chicken Fingers</span><span class="menu-card-price" style="color:#2B3A8C">$15</span></div></div>
+        <div class="menu-card" style="border-top-color:#2B3A8C"><div class="menu-card-top"><span class="menu-card-name">Chicken Taquitos</span><span class="menu-card-price" style="color:#2B3A8C">$18</span></div></div>
+      </div></div>
+
+    </div>
   </div>
 </section>
 
